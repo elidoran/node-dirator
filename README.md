@@ -108,12 +108,12 @@ A. **found** - an object containing the number found of each mode (type) specifi
     ```
 
 B. **rejected** - an object containing two numbers:
-
   1. **strings** - the number of paths rejected by the acceptString filter
   2. **paths** - the number of paths rejected by the acceptPath filter
 
 
-Results only contains these when its corresponding mode is specified:
+
+The results object only contains these when its corresponding mode is specified:
 
 1. **result.paths** - available when the `paths` mode is specified (the default mode)
 2. **result.files** - available when the `files` mode is specified (using `dirator.files()` sets this mode)
@@ -128,19 +128,14 @@ It operates in `paths` mode by default.
 There are three modes:
 
 A. **paths**
-
   1. only provides paths in results object: `result.paths`
   2. only calls the `path` and `paths` callbacks/listeners.
   3. will iterate through directories to find all paths
-
 B. **files**
-
   1. only provides files in results object: `result.files`
   2. only calls the `file` and `files` callbacks/listeners.
   3. will iterate through directories to find all files
-
 C. **dirs**
-
   1. only provides dirs in results object: `result.dirs`
   2. only calls the `dir` and `dirs` callbacks/listeners.
   3. will iterate through directories to find all directories
