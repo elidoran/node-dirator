@@ -36,7 +36,7 @@ dirator
       and #{result.rejected.paths} Path instances."
 
 # OR:
-{Dirator} = require 'dirator' # JS: Director = require('dirator').Dirator
+{Dirator} = require 'dirator' # JS: Dirator = require('dirator').Dirator
 dirator = new Dirator
   target: 'some/dir'
   # all the options used above
@@ -71,7 +71,7 @@ dirator.run()
 
 Without a `done` callback/listener dirator runs synchronously and provides all results at once in returned object.
 
-TODO: It seems appropriate to allow adding event listeners when running in synchronously because they are executed synchronously.  I may include this feature in a future version. For now, don't use callbacks/listeners without a `done` listener/callback.
+TODO: It seems appropriate to allow adding event listeners when running synchronously because they are executed synchronously.  I may include this feature in a future version. For now, don't use callbacks/listeners without a `done` listener/callback.
 
 ```coffeescript
 Dirator = require 'dirator'
@@ -91,11 +91,12 @@ result = dirator.run()
 
 ## Results
 
-The result contains different content depending on the [mode](#Modes) it runs in. The results are cumulative, so, the more modes you specify the more results you will receive.
+The result contains different content depending on the [mode](#modes) it runs in. The results are cumulative, so, the more modes you specify the more results you will receive.
 
-Results always contains these:
+The results object always contains these:
 
-1. found - an object containing the number found of each mode (type) specified
+1. **found** - an object containing the number found of each mode (type) specified
+
         ```coffeescript
         # specify all modes to get all counts
         results = dirator only:['files','dirs','paths']
@@ -105,15 +106,17 @@ Results always contains these:
         #     dirs : <number>
         #     paths: <number>
         ```
-2. rejected - an object containing two numbers:
-        a. strings - the number of paths rejected by the acceptString filter
-        b. paths - the number of paths rejected by the acceptPath filter
+
+2. **rejected** - an object containing two numbers:
+
+        a. **strings** - the number of paths rejected by the acceptString filter
+        b. **paths** - the number of paths rejected by the acceptPath filter
 
 Results only contains these when its corresponding mode is specified:
 
-1. `result.paths` - available when the `paths` mode is specified (the default mode)
-2. `result.files` - available when the `files` mode is specified (using `dirator.files()` sets this mode)
-3. `result.dirs` - available when the `dirs` mode is specified (using `dirator.dirs()` sets this mode)
+1. **result.paths** - available when the `paths` mode is specified (the default mode)
+2. **result.files** - available when the `files` mode is specified (using `dirator.files()` sets this mode)
+3. **result.dirs** - available when the `dirs` mode is specified (using `dirator.dirs()` sets this mode)
 
 ## Modes
 
@@ -123,15 +126,20 @@ It operates in `paths` mode by default.
 
 There are three modes:
 
-a. paths - only provides paths, does not separate out files or dirs in results
+a.** paths**
+
         1. only provides paths in results object: `result.paths`
         2. only calls the `path` and `paths` callbacks/listeners.
         3. will iterate through directories to find all paths
-b. files
+
+b. **files**
+
         1. only provides files in results object: `result.files`
         2. only calls the `file` and `files` callbacks/listeners.
         3. will iterate through directories to find all files
-c. dirs
+
+c. **dirs**
+
         1. only provides dirs in results object: `result.dirs`
         2. only calls the `dir` and `dirs` callbacks/listeners.
         3. will iterate through directories to find all directories
