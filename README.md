@@ -131,10 +131,12 @@ A. **paths**
   1. only provides paths in results object: `result.paths`
   2. only calls the `path` and `paths` callbacks/listeners.
   3. will iterate through directories to find all paths
+
 B. **files**
   1. only provides files in results object: `result.files`
   2. only calls the `file` and `files` callbacks/listeners.
   3. will iterate through directories to find all files
+
 C. **dirs**
   1. only provides dirs in results object: `result.dirs`
   2. only calls the `dir` and `dirs` callbacks/listeners.
