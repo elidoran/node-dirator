@@ -97,20 +97,20 @@ The results object always contains these:
 
 1. **found** - an object containing the number found of each mode (type) specified
 
-        ```coffeescript
-        # specify all modes to get all counts
-        results = dirator only:['files','dirs','paths']
-        # results =
-        #   found: # leave out a mode above and this won't contain its count
-        #     files: <number>
-        #     dirs : <number>
-        #     paths: <number>
-        ```
+    ```coffeescript
+    # specify all modes to get all counts
+    results = dirator only:['files','dirs','paths']
+    # results =
+    #   found: # leave out a mode above and this won't contain its count
+    #     files: <number>
+    #     dirs : <number>
+    #     paths: <number>
+    ```
 
 2. **rejected** - an object containing two numbers:
 
-        a. **strings** - the number of paths rejected by the acceptString filter
-        b. **paths** - the number of paths rejected by the acceptPath filter
+    a. **strings** - the number of paths rejected by the acceptString filter
+    b. **paths** - the number of paths rejected by the acceptPath filter
 
 Results only contains these when its corresponding mode is specified:
 
@@ -126,23 +126,23 @@ It operates in `paths` mode by default.
 
 There are three modes:
 
-a.** paths**
+A.** paths**
 
-        1. only provides paths in results object: `result.paths`
-        2. only calls the `path` and `paths` callbacks/listeners.
-        3. will iterate through directories to find all paths
+    1. only provides paths in results object: `result.paths`
+    2. only calls the `path` and `paths` callbacks/listeners.
+    3. will iterate through directories to find all paths
 
-b. **files**
+B. **files**
 
-        1. only provides files in results object: `result.files`
-        2. only calls the `file` and `files` callbacks/listeners.
-        3. will iterate through directories to find all files
+    1. only provides files in results object: `result.files`
+    2. only calls the `file` and `files` callbacks/listeners.
+    3. will iterate through directories to find all files
 
-c. **dirs**
+C. **dirs**
 
-        1. only provides dirs in results object: `result.dirs`
-        2. only calls the `dir` and `dirs` callbacks/listeners.
-        3. will iterate through directories to find all directories
+    1. only provides dirs in results object: `result.dirs`
+    2. only calls the `dir` and `dirs` callbacks/listeners.
+    3. will iterate through directories to find all directories
 
 The mode can be affected in three ways:
 
