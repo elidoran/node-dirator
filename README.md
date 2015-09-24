@@ -1,4 +1,7 @@
 # Dirator
+[![Build Status](https://travis-ci.org/elidoran/node-dirator.svg?branch=master)](https://travis-ci.org/elidoran/node-dirator)
+[![Dependency Status](https://gemnasium.com/elidoran/node-dirator.png)](https://gemnasium.com/elidoran/node-dirator)
+[![npm version](https://badge.fury.io/js/dirator.svg)](http://badge.fury.io/js/dirator)
 
 Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.
 
