@@ -95,7 +95,7 @@ The result contains different content depending on the [mode](#modes) it runs in
 
 The results object always contains these:
 
-A. **found** - an object containing the number found of each mode (type) specified
+1. **found** - an object containing the number found of each mode (type) specified
 
     ```coffeescript
     # specify all modes to get all counts
@@ -107,9 +107,9 @@ A. **found** - an object containing the number found of each mode (type) specifi
     #     paths: <number>
     ```
 
-B. **rejected** - an object containing two numbers:
-  1. **strings** - the number of paths rejected by the acceptString filter
-  2. **paths** - the number of paths rejected by the acceptPath filter
+2. **rejected** - an object containing two numbers:
+  a. **strings** - the number of paths rejected by the acceptString filter
+  b. **paths** - the number of paths rejected by the acceptPath filter
 
 
 
