@@ -97,15 +97,15 @@ The results object always contains these:
 
 A. **found** - an object containing the number found of each mode (type) specified
 
-    ```coffeescript
-    # specify all modes to get all counts
-    results = dirator only:['files','dirs','paths']
-    # results =
-    #   found: # leave out a mode above and this won't contain its count
-    #     files: <number>
-    #     dirs : <number>
-    #     paths: <number>
-    ```
+  ```coffeescript
+  # specify all modes to get all counts
+  results = dirator only:['files','dirs','paths']
+  # results =
+  #   found: # leave out a mode above and this won't contain its count
+  #     files: <number>
+  #     dirs : <number>
+  #     paths: <number>
+  ```
 
 B. **rejected** - an object containing two numbers:
   1. **strings** - the number of paths rejected by the acceptString filter
