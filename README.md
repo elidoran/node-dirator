@@ -112,6 +112,7 @@ The results object always contains these:
   A. **strings** - the number of paths rejected by the acceptString filter
   B. **paths** - the number of paths rejected by the acceptPath filter
 
+
 Results only contains these when its corresponding mode is specified:
 
 1. **result.paths** - available when the `paths` mode is specified (the default mode)
