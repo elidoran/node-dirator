@@ -1,0 +1,27 @@
+{
+  "name": "dirator",
+  "version": "0.7.0",
+  "description": "Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.",
+  "main": "lib",
+  "author": "Eli Doran <eli+npm@elidoran.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "coffee --bare --compile lib",
+    "clean": "rm -rf lib/*.js",
+    "prepublish": "coffee --bare --compile lib",
+    "postpublish": "rm -rf lib/*.js",
+    "test": "mocha --compilers coffee:coffee-script/register --reporter spec --bail --check-leaks test/lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elidoran/node-dirator.git"
+  },
+  "bugs": "http://github.com/elidoran/node-dirator/issues",
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "mocha": "^2.3.3"
+  },
+  "dependencies": {
+    "fspath": "^0.13.0"
+  }
+}
