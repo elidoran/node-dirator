@@ -1,6 +1,6 @@
 {
   "name": "dirator",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.",
   "main": "lib",
   "author": "Eli Doran <eli+npm@elidoran.com>",
