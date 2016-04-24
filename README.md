@@ -24,7 +24,7 @@ dirator
   target: 'some/dir'
   # although all these can be specified, you should only specify the ones you want
   acceptString: (pathString) -> path.length > 5 # each false return is counted
-  accept: (path) -> not path.endsWith '.tmp'    # each false return is counted
+  acceptPath: (path) -> not path.endsWith '.tmp'    # each false return is counted
   file  : (result) -> result.file.pipe(someTransform).pipe(targetStream)
   files : (result) -> # result.files
   dir   : (result) -> # result.dir
