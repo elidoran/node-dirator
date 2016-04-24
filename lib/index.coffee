@@ -28,7 +28,7 @@ class Dirator extends (require 'events').EventEmitter
 
     # store both accept filters provided (when not provided, they become undefined)
     for accept in ['acceptString', 'acceptPath']
-      @[accept] = options[accept]
+      @['_' + accept] = options[accept]
 
     # always recurse unless options specify *not* to
     if options.recurse isnt false then @recurse = true
