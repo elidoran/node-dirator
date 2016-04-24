@@ -12,7 +12,9 @@ class Dirator extends (require 'events').EventEmitter
     done ?= options.done ? (if 'function' is typeof options then options)
 
     # when there's a `done` callback, add it and change processing to async
-    if done? then @on 'done', done ; @async = true
+    if done?
+      @on 'done', done
+      @async = true
 
     # add the each callbacks, when specfied. add the type to `only`
     for event in ['file', 'dir', 'path']
@@ -123,6 +125,7 @@ class Dirator extends (require 'events').EventEmitter
         results.rejected.strings += result.rejected.strings
         # now call this again if @recurse
         if @recurse then @_iterate dirArray, dirArray.options
+        else @emit 'done', undefined, results
 
     if 'files' in @only
       action.tempFiles = []
