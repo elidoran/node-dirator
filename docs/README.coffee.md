@@ -7,11 +7,9 @@ Directory iterator with filters, individual and array callbacks/listeners, and b
 
 ## Install
 
-```
+```sh
 npm install dirator --save
 ```
-
-[CoffeeScript README](https://github.com/elidoran/node-dirator/blob/master/docs/README.coffee.md)
 
 ## Usage: Asynchronous via Options
 
@@ -19,48 +17,32 @@ You must specify a `done` callback to operate asynchronously.
 
 This example uses all other options, however, only specify the options you want and `dirator` will do less work.
 
-```javascript
-var dirator = require('dirator');
+    dirator = require 'dirator'
 
-dirator({
-  target: 'some/dir'
-  // although all these can be specified, you should only specify the ones you want
-  , acceptString: (pathString) -> path.length > 5 # each false return is counted
-  , acceptPath: (path) -> not path.endsWith '.tmp'    # each false return is counted
-  , file : function(result) { result.file.pipe(someTransform).pipe(targetStream)}
-  , files: function(result) { /* result.files */ }
-  , dir  : function(result) { /* result.dir */ }
-  , dirs : function(result) { /* result.dirs */ }
-  , path : function(result) { /* result.path */ }
-  , paths: function(result) { /* result.paths */ }
-  , done : function(error, results) {
-      if (error) { /* do something with error and return... */ }
-      console.log(
-        'Found',result.found.files
-        , 'files'
-        , result.found.dirs
-        , 'dirs, and'
-        , result.found.paths
-        , 'paths.'
-      );
-      console.log(
-        'Rejected paths based on'
-        , result.rejected.strings
-        , 'path strings and'
-        , result.rejected.paths
-        , 'Path instances.'
-      );
-    }
-});
+    dirator
+      target: 'some/dir'
+      # although all these can be specified, you should only specify the ones you want
+      acceptString: (pathString) -> path.length > 5 # each false return is counted
+      acceptPath: (path) -> not path.endsWith '.tmp'    # each false return is counted
+      file  : (result) -> result.file.pipe(someTransform).pipe(targetStream)
+      files : (result) -> # result.files
+      dir   : (result) -> # result.dir
+      dirs  : (result) -> # result.dirs
+      path  : (result) -> # result.path
+      paths : (result) -> # result.paths
+      done  : (error, results) ->
+        if error? then # do something with error and return...
+        console.log "Found #{result.found.files} files,
+          #{result.found.dirs} dirs, and #{result.found.paths} paths."
+        console.log "Rejected paths based on #{result.rejected.strings} path strings
+          and #{result.rejected.paths} Path instances."
 
-// OR:
-var Dirator = require('dirator').Dirator
-  , dirator = new Dirator(
-    target: 'some/dir'
-    // all the options used above
-  );
-dirator.run();
-```
+    # OR:
+    {Dirator} = require 'dirator' # JS: Dirator = require('dirator').Dirator
+    dirator = new Dirator
+      target: 'some/dir'
+      # all the options used above
+    dirator.run()
 
 
 ## Usage: Asynchronous via Events
@@ -69,22 +51,19 @@ You must specify a `done` event listener to operate asynchronously.
 
 This example uses all other options, however, only specify the options you want and `dirator` will do less work.
 
-```javascript
-var Dirator = require('dirator').Dirator
-  , dirator = new Dirator({target:'some/dir'});
+    Dirator = require 'dirator'
 
-dirator.on('file',  function(result) { result.file; }); // each file listed in current dir
-dirator.on('files', function(result) { result.files }); // files listed in current dir
-dirator.on('dir',   function(result) { result.dir });   // each accepted dir in current dir
-dirator.on('dirs',  function(result) { result.dirs });  // directories listed in current dir
-dirator.on('path',  function(result) { result.path });  // each accepted path in current dir
-dirator.on('paths', function(result) { result.paths }); // all accepted paths from current dir
-dirator.on('done',  function(error, result) {
-  // do something with counts...
-});
+    dirator = new Dirator target:'some/dir'
 
-dirator.run();
-```
+    dirator.on 'file',  (result) -> # result.file : each file listed in current dir
+    dirator.on 'files', (result) -> # result.files: files listed in current dir
+    dirator.on 'dir',   (result) -> # result.dir  : each accepted dir in current dir
+    dirator.on 'dirs',  (result) -> # result.dirs : directories listed in current dir
+    dirator.on 'path',  (result) -> # result.path : each accepted path in current dir
+    dirator.on 'paths', (result) -> # result.paths: all accepted paths from current dir
+    dirator.on 'done',  (error, result) -> # do something with counts...
+
+    dirator.run()
 
 
 ## Usage: Synchronous
@@ -93,22 +72,20 @@ Without a `done` callback/listener `dirator` runs synchronously and provides all
 
 TODO: It seems appropriate to allow adding event listeners when running synchronously because they are executed synchronously.  I may include this feature in a future version. For now, don't use callbacks/listeners without a `done` listener/callback.
 
-```javascript
-var Dirator = require('dirator').Dirator
-  , dirator = new Dirator({target:'some/dir'});
-  , result = dirator.run();
+    Dirator = require 'dirator'
 
-result = {
-  paths: [ /* array of all paths */ ]
-  found: {
-    paths: // <number>
-  },
-  rejected: {
-    strings: 0,
-    paths: 0
-  }
-}
-```
+    dirator = new Dirator target:'some/dir'
+
+    result = dirator.run()
+
+    result =
+     paths: # array of all paths
+       found:
+         paths: # <number>
+       rejected:
+         strings: 0
+         paths  : 0
+
 
 ## Results
 
@@ -118,17 +95,13 @@ The results object always contains these:
 
 A. **found** - an object containing the number found of each mode (type) specified
 
-  ```javascript
-  // specify all modes to get all counts
-  results = dirator({ only:['files','dirs','paths'] })
-  results = {
-    found: { // leave out a mode above and this won't contain its count
-      files: /* <number> */ ,
-      dirs : /* <number> */ ,
-      paths: /* <number> */
-    }
-  }
-  ```
+    # specify all modes to get all counts
+    results = dirator only:['files','dirs','paths']
+    # results =
+    #   found: # leave out a mode above and this won't contain its count
+    #     files: <number>
+    #     dirs : <number>
+    #     paths: <number>
 
 B. **rejected** - an object containing two numbers:
   1. **strings** - the number of paths rejected by the acceptString filter
@@ -173,16 +146,11 @@ The mode can be affected in three ways:
 
 Note: If you specify *both* the modes to use and a callback/listener which is *not* part of those modes, then they will *not* be called. For example:
 
-```javascript
-var dirator = require('dirator');
+    dirator = require 'dirator'
+    dirator
+      only: ['dirs']
+      file: (result) -> # this will never be called
+      done: (error, results) -> # this will receive `results.dirs` because of the mode
 
-dirator({
-  only: ['dirs'],
-  file: function(result) { /* this will never be called */ },
-  done: function(error, results) {
-    // this will receive `results.dirs` because of the mode
-  }
-});
-```  
 
 ### MIT License
