@@ -25,13 +25,13 @@ var dirator = require('dirator');
 dirator({
   target: 'some/dir'
   // although all these can be specified, you should only specify the ones you want
-  , acceptString: (pathString) -> path.length > 5 # each false return is counted
-  , acceptPath: (path) -> not path.endsWith '.tmp'    # each false return is counted
-  , file : function(result) { result.file.pipe(someTransform).pipe(targetStream)}
+  , acceptString: function(pathString) { return path.length > 5; } // each false return is counted
+  , acceptPath: function(path) { return !path.endsWith('.tmp'); }  // each false return is counted
+  , file : function(result) { result.file.pipe(someTransform).pipe(targetStream); }
   , files: function(result) { /* result.files */ }
-  , dir  : function(result) { /* result.dir */ }
-  , dirs : function(result) { /* result.dirs */ }
-  , path : function(result) { /* result.path */ }
+  , dir  : function(result) { /* result.dir */   }
+  , dirs : function(result) { /* result.dirs */  }
+  , path : function(result) { /* result.path */  }
   , paths: function(result) { /* result.paths */ }
   , done : function(error, results) {
       if (error) { /* do something with error and return... */ }
