@@ -3,6 +3,21 @@
   "version": "0.7.3",
   "description": "Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.",
   "main": "lib",
+  "keywords": [
+    "dir",
+    "directory",
+    "folder",
+    "iterate",
+    "traverse",
+    "traversal",
+    "visitor",
+    "listing",
+    "filter",
+    "events",
+    "asynchronous",
+    "utility",
+    "file"
+  ],
   "author": "Eli Doran <eli+npm@elidoran.com>",
   "license": "MIT",
   "scripts": {
