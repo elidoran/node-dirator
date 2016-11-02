@@ -3,7 +3,7 @@
 [![Dependency Status](https://gemnasium.com/elidoran/node-dirator.png)](https://gemnasium.com/elidoran/node-dirator)
 [![npm version](https://badge.fury.io/js/dirator.svg)](http://badge.fury.io/js/dirator)
 
-Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.
+Directory iterator with filters, individual and array callbacks/listeners, and both synchronous and asynchronous execution.
 
 ## Install
 
@@ -72,7 +72,7 @@ dirator.run()
 
 ## Usage: Synchronous
 
-Without a `done` callback/listener dirator runs synchronously and provides all results at once in returned object.
+Without a `done` callback/listener `dirator` runs synchronously and provides all results at once in returned object.
 
 TODO: It seems appropriate to allow adding event listeners when running synchronously because they are executed synchronously.  I may include this feature in a future version. For now, don't use callbacks/listeners without a `done` listener/callback.
 
