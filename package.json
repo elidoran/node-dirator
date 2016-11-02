@@ -6,10 +6,10 @@
   "author": "Eli Doran <eli+npm@elidoran.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "coffee --bare --compile lib",
+    "build": "coffee --bare --compile lib",
     "clean": "rm -rf lib/*.js",
-    "prepublish": "coffee --bare --compile lib",
-    "postpublish": "rm -rf lib/*.js",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean",
     "test": "mocha --compilers coffee:coffee-script/register --reporter spec --bail --check-leaks test/lib"
   },
   "repository": {
