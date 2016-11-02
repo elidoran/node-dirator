@@ -2,7 +2,8 @@ fs         = require 'fs'
 corepath   = require 'path'
 Path       = require 'fspath'
 
-class Dirator extends (require 'events').EventEmitter
+class Dirator extends require('events').EventEmitter
+
   constructor: (options, done) -> @_configure options, done
 
   _configure: (options = {}, done) ->
@@ -50,7 +51,7 @@ class Dirator extends (require 'events').EventEmitter
     super event, listener
 
   run: (options, done) ->
-    if options? then @_configure options, done
+    if arguments.length > 0 then @_configure options, done
     unless @target? then throw new Error 'dirator requires a `target` to run'
     if @async then @_iterate [new Path @target] else @_iterateSync()
 
@@ -173,7 +174,7 @@ class Dirator extends (require 'events').EventEmitter
 #  1. Dirator = require('dirator').Dirator
 #  2. dirator = require('dirator')
 #     dirator options
-#  3. require('dirator') (options)
+#  3. require('dirator')(options)
 module.exports = (args...) -> new Dirator(args...).run()
 module.exports.Dirator = Dirator
 for type in ['files', 'dirs', 'paths']
