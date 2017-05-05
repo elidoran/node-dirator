@@ -33,8 +33,8 @@
   },
   "bugs": "http://github.com/elidoran/node-dirator/issues",
   "devDependencies": {
-    "coffee-script": "^1.11.1",
-    "mocha": "^3.1.2"
+    "coffee-script": "^1.12.5",
+    "mocha": "^3.3.0"
   },
   "dependencies": {
     "fspath": "^0.14.0"
