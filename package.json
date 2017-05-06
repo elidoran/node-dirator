@@ -1,6 +1,6 @@
 {
   "name": "dirator",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Directory iterator with filters, each and array callbacks/listeners, and both synchronous and asynchronous execution.",
   "main": "lib",
   "keywords": [
