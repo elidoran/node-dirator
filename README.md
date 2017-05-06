@@ -19,7 +19,6 @@ require('dirator')({
   // must have done callback for async
   done: function(error, result) {
     // check for an error
-    // use result...
   }
 })
 ```
@@ -34,12 +33,12 @@ npm install dirator --save
 
 ## Table of Contents
 
-1. [Usage - Asynchronous via Options](#usage-asynchronousviaoptions)
-2. [Usage - Asynchronous via Events](#usage-asynchronousviaevents)
+1. [Usage - Asynchronous via Options](#usage-asynchronous-via-options)
+2. [Usage - Asynchronous via Events](#usage-asynchronous-via-events)
 3. [Usage - Synchronous](#usage-synchronous)
 4. [Results](#results)
 5. [Modes](#modes)
-6. [Convenience methods](#usage-conveniencemethods)
+6. [Convenience methods](#usage-convenience-methods)
 7. [Examples](#examples)
 
 
