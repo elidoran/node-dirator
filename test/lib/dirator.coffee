@@ -6,13 +6,13 @@ filePaths = require '../helpers/file-paths.coffee'
 
 checkSingle = (test, path) ->
   assert path, 'should have a single result'
-  assert.equal test.paths[path.path], true, 'test shouldnt have '+path.path
+  assert.equal test.paths[path.path], true, 'test shouldnt have ' + path.path
 
 checkArray = (test, array, count) ->
   assert array, 'should have an array result'
   for thing in array
-    assert.equal test.paths[thing.path], true, 'test shouldnt have '+thing.path
-  if count? then assert.equal array.length, count, 'array result should have '+count
+    assert.equal test.paths[thing.path], true, 'test shouldnt have ' + thing.path
+  if count? then assert.equal array.length, count, 'array result should have ' + count
 
 allPaths  = {}
 allPaths[key] = value for key,value of dirPaths
@@ -29,7 +29,7 @@ describe 'test dirator', ->
     path: {count:Object.keys(allPaths).length, paths:allPaths, mode:'paths'}
 
 
-  for type,test of tests
+  for type, test of tests
     do (type, test) ->
 
       describe "in #{type}-only mode", ->
@@ -45,7 +45,7 @@ describe 'test dirator', ->
               it "should provide array with #{test.count} #{test.mode}", (done) ->
 
                 options[test.mode] = (result) ->
-                  for thing in result?[test.mode]
+                  for thing in result
                     assert.equal test.paths[thing], true, "result shouldnt have #{type}: " + thing
 
                 dirator options, (error, results) ->
@@ -96,7 +96,7 @@ describe 'test dirator', ->
             it "should call callback #{test.count} times", (done) ->
 
               options = target:'test'
-              options[type] = (result) -> checkSingle test, result[type]
+              options[type] = (result) -> checkSingle test, result
 
               dirator options, (error, results) ->
                 if error? then return done error
@@ -111,12 +111,12 @@ describe 'test dirator', ->
         target: 'test'
         acceptString: (path) -> true
         acceptPath  : (path) -> true
-        file  : (result) -> checkSingle test, result.file
-        dir   : (result) -> checkSingle test, result.dir
-        path  : (result) -> checkSingle test, result.path
-        files : (result) -> checkArray test, result.files
-        dirs  : (result) -> checkArray test, result.dirs
-        paths : (result) -> checkArray test, result.paths
+        file  : (file) -> checkSingle test, file
+        dir   : (dir) -> checkSingle test, dir
+        path  : (path) -> checkSingle test, path
+        files : (files) -> checkArray test, files
+        dirs  : (dirs) -> checkArray test, dirs
+        paths : (paths) -> checkArray test, paths
         done: (error, results) ->
           if error? then return done error
           assert.equal results.rejected.strings, 0, 'should have rejected zero strings'
