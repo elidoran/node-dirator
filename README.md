@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/elidoran/node-dirator.svg?branch=master)](https://travis-ci.org/elidoran/node-dirator)
 [![Dependency Status](https://gemnasium.com/elidoran/node-dirator.png)](https://gemnasium.com/elidoran/node-dirator)
 [![npm version](https://badge.fury.io/js/dirator.svg)](http://badge.fury.io/js/dirator)
+[![Coverage Status](https://coveralls.io/repos/github/elidoran/node-dirator/badge.svg?branch=master)](https://coveralls.io/github/elidoran/node-dirator?branch=master)
 
 Directory iterator with filters, individual and array callbacks/listeners, and both synchronous and asynchronous execution.
 
