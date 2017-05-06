@@ -21,20 +21,20 @@ class Dirator extends require('events').EventEmitter
     for event in ['file', 'dir', 'path']
       if options[event]?
         @on event, options[event]
-        @only.push event + 's'
+        @only[@only.length] = event + 's'
 
     # add the array callbacks, when specfied. add the type to `only`
     for event in ['files', 'dirs', 'paths']
       if options[event]?
         @on event, options[event]
-        if event not in @only then @only.push event
+        if event not in @only then @only[@only.length] = event
 
     # store both accept filters provided (when not provided, they become undefined)
     for accept in ['acceptString', 'acceptPath']
       @['_' + accept] = options[accept]
 
     # always recurse unless options specify *not* to
-    if options.recurse isnt false then @recurse = true
+    @recurse = options.recurse isnt false
 
     # override `only` settings from events when `only` is explicitly set in options
     if options.only? then @only = options.only
@@ -47,9 +47,9 @@ class Dirator extends require('events').EventEmitter
     # if they listen to events for a mode, add that mode to what we do.
     switch event
       when 'done'          then @async = true
-      when 'file', 'files' then @only.push 'files'
-      when 'dir',  'dirs'  then @only.push 'dirs'
-      when 'path', 'paths' then @only.push 'paths'
+      when 'file', 'files' then @only[@only.length] = 'files'
+      when 'dir',  'dirs'  then @only[@only.length] = 'dirs'
+      when 'path', 'paths' then @only[@only.length] = 'paths'
 
     # always perform the on() operation
     super event, listener
@@ -57,7 +57,7 @@ class Dirator extends require('events').EventEmitter
   run: (options, done) ->
 
     # if they specified options, done, or both, then reconfigure
-    if arguments.length > 0 then @_configure options, done
+    if options? or done? then @_configure options, done
 
     # there must be a `target` for us to start at
     unless @target? then throw new Error 'dirator requires a `target` to run'
@@ -70,7 +70,6 @@ class Dirator extends require('events').EventEmitter
     # TODO:
     #  adapt to use emit to send them instead of gathering it all up into arrays
     #  only when there *are* listeners. otherwise, return all the arrays.
-    #  combine ops as in node-paths ...?
 
     # hold all results info in this as we do all the work
     results = found: {}, rejected: paths:0, strings:0
@@ -123,7 +122,7 @@ class Dirator extends require('events').EventEmitter
           results.found?.dirs += 1 if results.found?.dirs?
 
           # only add this directory to our workload if `recurse` is on
-          dirArray.push path if @recurse
+          dirArray[dirArray.length] = path if @recurse
 
           # add directory to our results only if we're tracking them
           results?.dirs?.push path
@@ -165,14 +164,14 @@ class Dirator extends require('events').EventEmitter
       acceptString: @_acceptString
       acceptPath: @_acceptPath
 
-      each: (result) => # these also increment the results.found values
+      each: (result) -> # these also increment the results.found values
 
         # call each actions with conditional '?' in case they don't exist
         action.file? result
         action.dir?  result
         action.path? result
 
-      all: (error, result) =>
+      done: (error, result) =>
 
         if error? then return @emit 'done', error, result
 
@@ -196,15 +195,16 @@ class Dirator extends require('events').EventEmitter
 
       # provide a 'file' action
       action.file = (result) =>
-        if result.path.isFile()
-          action.tempFiles.push result.path
-          result.file = result.path
-          @emit 'file', result
+        path = result.path
+        if path.isFile()
+          action.tempFiles[action.tempFiles.length] = path
+          # result.file = path
+          @emit 'file', path
 
       # provide a 'files' action
       action.files = =>
         results.found.files += action.tempFiles.length
-        @emit 'files', files:action.tempFiles
+        @emit 'files', action.tempFiles
         action.tempFiles = []
 
     # if the 'dirs' mode is active
@@ -215,38 +215,39 @@ class Dirator extends require('events').EventEmitter
 
       # provide a 'dir' action
       action.dir = (result) =>
-        if result.path.isDir()
-          if @recurse then dirArray.push result.path
-          action.tempDirs.push result.path
-          result.dir = result.path
-          @emit 'dir', result
+        path = result.path
+        if path.isDir()
+          if @recurse then dirArray[dirArray.length] = path
+          action.tempDirs[action.tempDirs.length] = path
+          result.dir = path
+          @emit 'dir', path
 
       # provide a 'dirs' action
       action.dirs = =>
         results.found.dirs += action.tempDirs.length
-        @emit 'dirs', dirs:action.tempDirs
+        @emit 'dirs', action.tempDirs
         action.tempDirs = []
 
     # if `recurse` is on then provide a 'dir' action, not because
     # they want each dir, but to add new dirs to traverse into
     else if @recurse
       action.dir = (result) ->
-        if result.path.isDir() then dirArray.push result.path
+        if result.path.isDir() then dirArray[dirArray.length] = result.path
 
     # if the 'paths' mode is active
     if 'paths' in @only
 
       results.found.paths = 0
 
-      # provide a 'path' action (we're only emitting, so, bind it)
-      action.path = @emit.bind this, 'path'
+      # provide a 'path' action
+      action.path = (result) =>  @emit 'path', result.path
 
       # provide a 'paths' action
       action.paths = (result) =>
         results.found.paths += result.paths.length
-        @emit 'paths', result
+        @emit 'paths', result.paths
 
-    return action:action, results:results, list:list # return options object
+    return { action, results, list } # return options object
 
 
 # Use three ways:
@@ -254,7 +255,7 @@ class Dirator extends require('events').EventEmitter
 #  2. dirator = require('dirator')
 #     dirator options
 #  3. require('dirator')(options)
-module.exports = (args...) -> new Dirator(args...).run()
+module.exports = (options, done) -> new Dirator(options, done).run()
 module.exports.Dirator = Dirator
 
 # Provide convenience functions prebuilt with mode:
