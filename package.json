@@ -21,6 +21,7 @@
   "author": "Eli Doran <eli+npm@elidoran.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "coffeelint -f build/coffeelint.json lib",
     "build": "coffee --bare --compile lib",
     "clean": "rm -rf lib/*.js",
     "prepublish": "npm run build",
@@ -34,6 +35,7 @@
   "bugs": "http://github.com/elidoran/node-dirator/issues",
   "devDependencies": {
     "coffee-script": "^1.12.5",
+    "coffeelint": "^1.16.0",
     "mocha": "^3.3.0"
   },
   "dependencies": {
